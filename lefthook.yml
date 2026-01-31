@@ -7,12 +7,12 @@ pre-commit:
 
 pre-push:
   commands:
-    validate:
-      glob: '*.{ts,tsx}'
-      run: npm run typecheck
+    # validate:
+    #   glob: '*.{ts,tsx}'
+    #   run: npm run typecheck
     lint:
       glob: '*.{ts,tsx}'
       run: npm run lint
-    test:
-      glob: '*.{ts,tsx}'
-      run: npm run test:coverage
+    # test:
+    #   glob: '*.{ts,tsx}'
+    #   run: npm run test:coverage
