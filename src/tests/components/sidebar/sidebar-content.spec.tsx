@@ -1,4 +1,7 @@
-import { SidebarContent } from '@/components/sidebar/sidebar-content';
+import {
+  SidebarContent,
+  SidebarContentProps,
+} from '@/components/sidebar/sidebar-content';
 import { render, screen } from '@/lib/test-utils';
 import userEvent from '@testing-library/user-event';
 
@@ -8,15 +11,46 @@ jest.mock('next/navigation', () => ({
   useRouter: () => ({ push: pushMock }),
 }));
 
-const makeSut = () => {
-  return render(<SidebarContent />);
+const initialPrompts = [
+  {
+    id: '1',
+    title: 'Title 01',
+    content: 'Content 01',
+  },
+];
+
+const makeSut = (
+  { prompts = initialPrompts }: SidebarContentProps = {} as SidebarContentProps
+) => {
+  return render(<SidebarContent prompts={prompts} />);
 };
 
 describe('SidebarContent', () => {
-  it('should render a new prompt button', () => {
-    makeSut();
-    expect(screen.getByRole('complementary')).toBeVisible();
-    expect(screen.getByRole('button', { name: 'Novo Prompt' })).toBeVisible();
+  describe('base', () => {
+    it('should render a new prompt button', () => {
+      makeSut();
+      expect(screen.getByRole('complementary')).toBeVisible();
+      expect(screen.getByRole('button', { name: 'Novo Prompt' })).toBeVisible();
+    });
+
+    it.only('deveria renderizar a lista de promps', () => {
+      const input = [
+        {
+          id: '1',
+          title: 'Title 01',
+          content: 'Content 01',
+        },
+        {
+          id: '2',
+          title: 'Title 02',
+          content: 'Content 02',
+        },
+      ];
+      makeSut({ prompts: input });
+
+      expect(screen.getAllByText(input[0].title)).toBeInTheDocument();
+      expect(screen.getAllByRole('paragraph')).toHaveLength(input.length);
+    });
   });
 
   describe('collapse', () => {

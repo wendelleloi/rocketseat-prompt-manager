@@ -11,7 +11,17 @@ import {
 import { useRouter } from 'next/navigation';
 import { Logo } from '../logo/logo';
 
-export const SidebarContent = () => {
+type Prompt = {
+  id: string;
+  title: string;
+  content: string;
+};
+
+export type SidebarContentProps = {
+  prompts: Prompt[];
+};
+
+export const SidebarContent = ({ prompts }: SidebarContentProps) => {
   const router = useRouter();
 
   const [isCollapsed, setIsCollapsed] = useState(false);
