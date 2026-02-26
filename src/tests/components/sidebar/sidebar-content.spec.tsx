@@ -33,7 +33,7 @@ describe('SidebarContent', () => {
       expect(screen.getByRole('button', { name: 'Novo Prompt' })).toBeVisible();
     });
 
-    it.only('deveria renderizar a lista de promps', () => {
+    it('deveria renderizar a lista de promps', () => {
       const input = [
         {
           id: '1',
@@ -48,8 +48,18 @@ describe('SidebarContent', () => {
       ];
       makeSut({ prompts: input });
 
-      expect(screen.getAllByText(input[0].title)).toBeInTheDocument();
+      expect(screen.getByText(input[0].title)).toBeInTheDocument();
       expect(screen.getAllByRole('paragraph')).toHaveLength(input.length);
+    });
+
+    it('deveria atualizar o campo de busca ao digitar', async () => {
+      const text = 'AI';
+      makeSut();
+      const searchInput = screen.getByPlaceholderText('Buscar prompts...');
+
+      await userEvent.type(searchInput, text);
+
+      expect(searchInput).toHaveValue(text);
     });
   });
 

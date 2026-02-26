@@ -8,3 +8,6 @@ CREATE TABLE "prompts" (
 
     CONSTRAINT "prompts_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "prompts_title_key" ON "prompts"("title");
