@@ -10,6 +10,6 @@ export default defineConfig({
   },
   engine: 'classic',
   datasource: {
-    url: 'postgresql://postgres:password@localhost:5432/rocketseat_prompt_manager?schema=public',
+    url,
   },
 });
